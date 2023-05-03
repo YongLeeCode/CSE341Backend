@@ -1,0 +1,18 @@
+//first name
+http://localhost:5000/firstname https 1.0
+
+###
+//last name
+http://localhost:5000/lastname
+
+###
+//email
+http://localhost:5000/email
+
+###
+// color
+http://localhost:5000/color
+
+###
+// birthday
+http://localhost:5000/birthday
