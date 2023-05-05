@@ -4,18 +4,19 @@ var ObjectId = require('mongodb').ObjectId;
 // GET Requests
 
 const getContacts = async (req, res, next) => {
-  const result = await mongodb.getDb().db('cse341').collection('contacts').find();
+  const result = await mongodb.getDb().db('CSE341').collection('contacts').find();
 
   // console.log(result);
   result.toArray().then((items) => {
     res.setHeader('Content-Type', 'application/json');
+    console.log(items)
     res.status(200).json(items);
   });
 };
 
 const getSingle = async (req, res, next) => {
   var o_id = new ObjectId(req.params.id);
-  const result = await mongodb.getDb().db('cse341').collection('contacts').find({ _id: o_id });
+  const result = await mongodb.getDb().db('CSE341').collection('contacts').find({ _id: o_id });
 
   (await result.count()) > 0
     ? result.toArray().then((items) => {
@@ -27,7 +28,7 @@ const getSingle = async (req, res, next) => {
 
 const searchContact = async (req, res, next) => {
   var o_id = new ObjectId(req.query.id);
-  const result = await mongodb.getDb().db('cse341').collection('contacts').find({ _id: o_id });
+  const result = await mongodb.getDb().db('CSE341').collection('contacts').find({ _id: o_id });
   result.toArray().then((items) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(items);
@@ -37,7 +38,7 @@ const searchContact = async (req, res, next) => {
 // POST requests
 const addContact = async (req, res, next) => {
   try {
-    const result = await mongodb.getDb().db('cse341').collection('contacts').insertOne(req.body);
+    const result = await mongodb.getDb().db('CSE341').collection('contacts').insertOne(req.body);
     res.setHeader(`Content-Type`, `application/json`);
     result
       ? res
@@ -55,7 +56,7 @@ const updateContact = async (req, res, next) => {
     const o_id = new ObjectId(req.params.id);
     const _ = await mongodb
       .getDb()
-      .db('cse341')
+      .db('CSE341')
       .collection('contacts')
       .updateOne({ _id: o_id }, { $set: req.body })
       .then((result) => {
@@ -75,7 +76,7 @@ const deleteContact = async (req, res, next) => {
     const o_id = new ObjectId(req.params.id);
     const _ = await mongodb
       .getDb()
-      .db('cse341')
+      .db('CSE341')
       .collection('contacts')
       .deleteOne({ _id: o_id }, {})
       .then((result) => {
